@@ -1,0 +1,122 @@
+# This file holds the statements used to create the tables of school db and to insert some values inside all of them
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE courses(
+courseid int not null,
+area varchar(64),
+title varchar(64),
+descrip varchar(255),
+prereqs varchar(255),
+PRIMARY KEY(courseid)
+);
+
+CREATE TABLE classes(
+classid int,
+courseid int not null,
+days int,
+starttime int,
+endtime int,
+bldg varchar(60),
+roomnum int,
+FOREIGN KEY(courseid) REFERENCES courses(courseid)
+);
+
+CREATE TABLE crosslistings(
+courseid int not null,
+dept varchar(64),
+coursenum int,
+FOREIGN KEY(courseid) REFERENCES courses(courseid)
+);
+
+CREATE TABLE profs(
+profid int not null,
+profname varchar(64),
+PRIMARY KEY(profid)
+);
+
+CREATE TABLE coursesprofs(
+courseid int not null,
+profid int not null,
+FOREIGN KEY(profid) REFERENCES profs(profid),
+FOREIGN KEY(courseid) REFERENCES courses(courseid)
+);
+
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (1, 'A', 'Modern languages', 'Learn different languages', 'Logical skills, Charisma');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (2, 'B', 'Intro to Earth Sciences', 'Geography and curiosities', 'Logical skills, Basics of Sciences');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (3, 'B', 'Computer Science', 'Learn about programming', 'Logical skills, Mathematics, Computer knowledge');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (4, 'B', 'Intro to Statistics', 'Analyze and take the right decisions', 'Logical skills, Mathematics');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (5, 'D', 'Intro to Strategic Management', 'Prepare to become a great leader', 'Logical skills, Charisma, Language fluency');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (6, 'D', 'Personal Developement', 'Discover who you are!', 'No special skills required');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (7, 'D', 'Intro to Theatre', 'Wanna be a star?', 'Charisma, Language fluency, Voice');
+INSERT INTO courses(courseid, area, title, descrip, prereqs)
+VALUES (8, 'D', 'International Developement', 'Extend your boundaries!', 'Language fluency, Logical skills');
+
+SELECT * FROM courses;
+
+INSERT INTO profs(profid, profname) VALUES (1, 'Bette Muller');
+INSERT INTO profs(profid, profname) VALUES (2, 'David Petterson');
+INSERT INTO profs(profid, profname) VALUES (3, 'Joan Hartner-Lewis');
+INSERT INTO profs(profid, profname) VALUES (4, 'John Miller');
+INSERT INTO profs(profid, profname) VALUES (5, 'Linda Ferguson');
+INSERT INTO profs(profid, profname) VALUES (6, 'Martin Silver');
+INSERT INTO profs(profid, profname) VALUES (7, 'Michael Stoner');
+INSERT INTO profs(profid, profname) VALUES (8, 'Llamar Watson');
+
+SELECT * FROM profs;
+
+INSERT INTO coursesprofs(courseid, profid) VALUES (1, 1);
+INSERT INTO coursesprofs(courseid, profid) VALUES (2, 7);
+INSERT INTO coursesprofs(courseid, profid) VALUES (3, 3);
+INSERT INTO coursesprofs(courseid, profid) VALUES (4, 4);
+INSERT INTO coursesprofs(courseid, profid) VALUES (6, 6);
+INSERT INTO coursesprofs(courseid, profid) VALUES (5, 5);
+INSERT INTO coursesprofs(courseid, profid) VALUES (7, 2);
+INSERT INTO coursesprofs(courseid, profid) VALUES (8, 8);
+
+SELECT * FROM coursesprofs;
+
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (1, 4, 30, 8, 10, 'B4', 8);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (2, 3, 90, 10, 12, 'B7', 14);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (3, 7, 45, 13, 15, 'D1', 2);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (4, 5, 60, 14, 16, 'D3', 6);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (5, 2, 90, 16, 18, 'B6', 12);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (6, 1, 120, 12, 16, 'A2', 4);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (7, 6, 30, 12, 14, 'D5', 10);
+INSERT INTO classes(classid, courseid, days, starttime, endtime, bldg, roomnum)
+VALUES (8, 8, 45, 11, 13, 'D8', 16);
+
+SELECT * FROM classes;
+
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (1, 'HUM', 2);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (2, 'MPLS', 6);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (3, 'MPLS', 3);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (4, 'MPLS', 5);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (5, 'COS', 7);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (6, 'COS', 1);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (7, 'COS', 4);
+INSERT INTO crosslistings(courseid, dept, coursenum)
+VALUES (8, 'COS', 30);
+
+SELECT * FROM crosslistings;
