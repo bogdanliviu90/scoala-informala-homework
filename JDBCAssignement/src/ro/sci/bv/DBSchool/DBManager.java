@@ -40,7 +40,7 @@ public class DBManager {
 
     public static void main(String[] args) {
         Connection connection = Connector.getConnection("mysql", "localhost", 3306,
-                "school", "root", "Bbogdi28LIV");
+                "school", "root", "password");
         if (connection != null) {
             int opt = chooseOption();
             while (opt != 0) {
